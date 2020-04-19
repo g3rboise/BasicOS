@@ -9,11 +9,14 @@ ${ISO} : BasicOs.bin
 	grub-mkrescue -o $@ isodir
 
 #create kernel binary
-${BINARY}: main.o boot.o linker.ld
-	ld -m elf_i386 -T linker.ld main.o boot.o -o $@ -nostdlib
+${BINARY}: main.o vga.o boot.o linker.ld
+	ld -m elf_i386 -T linker.ld main.o boot.o vga.o -o $@ -nostdlib
 
 main.o : ../src/boot/main.c
-	gcc -m32 -c ../src/boot/main.c -o $@ -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+	gcc -m32 -c $^ -o $@ -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+
+vga.o : ../src/boot/vga.c
+	gcc -m32 -c $^ -o $@ -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 
 boot.o : 
 	as --32  ../src/boot/boot.s -o boot.o
