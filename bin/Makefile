@@ -1,25 +1,33 @@
 ISO=BasicOs.iso
 BINARY=BasicOs.bin
 
+GRUB_CONF=grub.cfg
+LINKER_CONF=linker.ld
+
+SRC_DIR   = ../src/boot/
+OBJ_DIR   = ./
+
+SRC_C  := $(wildcard $(SRC_DIR)/*.c)
+SRC_S  := $(wildcard $(SRC_DIR)/*.s)
+OBJ_C  := $(SRC_C:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+OBJ_S  := $(SRC_S:$(SRC_DIR)/%.s=$(OBJ_DIR)/%.o)
+
 # create iso image with kernel and grub
-${ISO} : BasicOs.bin
+$(ISO) : $(BINARY)
 	mkdir -p isodir/boot/grub
-	cp BasicOs.bin isodir/boot/${BINARY}
-	cp grub.cfg isodir/boot/grub/grub.cfg
+	cp BasicOs.bin isodir/boot/$(BINARY)
+	cp $(GRUB_CONF) isodir/boot/grub/$(GRUB_CONF)
 	grub-mkrescue -o $@ isodir
 
 #create kernel binary
-${BINARY}: main.o vga.o boot.o linker.ld
-	ld -m elf_i386 -T linker.ld main.o boot.o vga.o -o $@ -nostdlib
+$(BINARY): $(OBJ_C) $(OBJ_S) $(LINKER_CONF)
+	ld -m elf_i386 -T $(LINKER_CONF) $(OBJ_C) $(OBJ_S) -o $@ -nostdlib
 
-main.o : ../src/boot/main.c
+$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
 	gcc -m32 -c $^ -o $@ -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 
-vga.o : ../src/boot/vga.c
-	gcc -m32 -c $^ -o $@ -std=gnu99 -ffreestanding -O2 -Wall -Wextra
-
-boot.o : 
-	as --32  ../src/boot/boot.s -o boot.o
+$(OBJ_DIR)/%.o : $(SRC_DIR)/%.s
+	as --32  -c $^ -o $@
 
 #clear bin folder
 clear :
