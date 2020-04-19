@@ -1,4 +1,4 @@
-/bin/*.o
+/bin/obj/*
 /bin/*.bin
 /bin/*.iso
 .vscode/*
