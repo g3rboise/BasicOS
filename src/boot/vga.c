@@ -1,4 +1,5 @@
 #include "vga.h"
+#include "string.h"
 
 /*
 * VGA buffer ADDR
@@ -58,5 +59,15 @@ void print_char(char ch, uint8_t fore_color, uint8_t back_color){
   }
   else{
     vga_buffer[vga_index ++] = vga_entry(ch,fore_color,back_color);
+  }
+}
+
+/*
+* print_string - print string on VGA
+*/
+void print_string(char * str, uint8_t fore_color, uint8_t back_color){
+  uint64_t len = strlen(str);
+  for(uint64_t i = 0; i < len; i++){
+    print_char(str[i], fore_color, back_color);
   }
 }

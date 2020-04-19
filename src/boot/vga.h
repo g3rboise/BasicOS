@@ -10,6 +10,8 @@
     #define VGA_BUFFER_SIZE VGA_COLUMN_NBR * VGA_LINE_NBR
 
     void print_char(char ch, uint8_t fore_color, uint8_t back_color);
+    void print_string(char * str, uint8_t fore_color, uint8_t back_color);
+
     void init_vga(uint8_t fore_color, uint8_t back_color);
 
     enum vga_color {
