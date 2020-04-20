@@ -76,7 +76,7 @@ void print_string(char * str, uint8_t fore_color, uint8_t back_color){
 * print_uint - print unsigned integer on VGA
 */
 void print_uint(uint_t i, uint8_t fore_color, uint8_t back_color){
-  char res[11];
+  char res[12];
   uitoa(i,res);
   print_string(res,fore_color,back_color);
 }
@@ -85,7 +85,25 @@ void print_uint(uint_t i, uint8_t fore_color, uint8_t back_color){
 * print_int - print signed integer on VGA
 */
 void print_int(int_t i, uint8_t fore_color, uint8_t back_color){
-  char res[11];
+  char res[12];
   itoa(i,res);
+  print_string(res,fore_color,back_color);
+}
+
+/*
+* print_int_hex - print integer on hexa
+*/
+void print_int_hex(int_t i, uint8_t fore_color, uint8_t back_color){
+  char res[12];
+  itoah(i,res);
+  print_string(res,fore_color,back_color);
+}
+
+/*
+* print_int_hex - print integer on binary
+*/
+void print_int_bin(int_t i, uint8_t fore_color, uint8_t back_color){
+  char res[12];
+  itoab(i,res);
   print_string(res,fore_color,back_color);
 }

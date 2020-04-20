@@ -13,6 +13,8 @@
     void print_string(char * str, uint8_t fore_color, uint8_t back_color);
     void print_uint(uint_t i, uint8_t fore_color, uint8_t back_color);
     void print_int(int_t i, uint8_t fore_color, uint8_t back_color);
+    void print_int_hex(int_t i, uint8_t fore_color, uint8_t back_color);
+    void print_int_bin(int_t i, uint8_t fore_color, uint8_t back_color);
 
     void init_vga(uint8_t fore_color, uint8_t back_color);
 

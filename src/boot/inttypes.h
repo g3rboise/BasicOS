@@ -10,6 +10,10 @@
     typedef unsigned short uint16_t;
     typedef unsigned int uint32_t;
 
+    #define SYSTEM_DEC 10
+    #define SYSTEM_HEX 16
+    #define SYSTEM_BINARY 2
+
     #ifdef _64_BITS
         typedef long int64_t;
         typedef unsigned long uint64_t;
@@ -24,6 +28,8 @@
     #endif
 
     void itoa(int_t i, char * res);
+    void itoah(int_t i, char * res);
+    void itoab(int_t i, char * res);
     void uitoa(uint_t i, char * res);
 
 #endif
