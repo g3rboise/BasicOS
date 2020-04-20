@@ -3,6 +3,6 @@
     
     #include "inttypes.h"
     
-    uint64_t strlen(char * str);
+    uint_t strlen(char * str);
 
 #endif

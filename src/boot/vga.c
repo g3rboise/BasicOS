@@ -32,7 +32,7 @@ uint16_t vga_entry(unsigned char ch, uint8_t fore_color, uint8_t back_color)
 */
 void clear_vga_buffer(uint16_t **buffer, uint8_t fore_color, uint8_t back_color)
 {
-  uint64_t i;
+  uint_t i;
   for(i = 0; i < VGA_BUFFER_SIZE; i++){
     (*buffer)[i] = vga_entry(NULL, fore_color, back_color);
   }
@@ -66,8 +66,26 @@ void print_char(char ch, uint8_t fore_color, uint8_t back_color){
 * print_string - print string on VGA
 */
 void print_string(char * str, uint8_t fore_color, uint8_t back_color){
-  uint64_t len = strlen(str);
-  for(uint64_t i = 0; i < len; i++){
+  uint_t len = strlen(str);
+  for(uint_t i = 0; i < len; i++){
     print_char(str[i], fore_color, back_color);
   }
+}
+
+/*
+* print_uint - print unsigned integer on VGA
+*/
+void print_uint(uint_t i, uint8_t fore_color, uint8_t back_color){
+  char res[11];
+  uitoa(i,res);
+  print_string(res,fore_color,back_color);
+}
+
+/*
+* print_int - print signed integer on VGA
+*/
+void print_int(int_t i, uint8_t fore_color, uint8_t back_color){
+  char res[11];
+  itoa(i,res);
+  print_string(res,fore_color,back_color);
 }
